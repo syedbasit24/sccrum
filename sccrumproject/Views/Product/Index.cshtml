@@ -1,0 +1,52 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model List<Product>
+
+@{
+    ViewData["Title"] = "Product List";
+}
+
+<h1>Product List</h1>
+
+<p>
+    <a href="@Url.Action("Create")" class="btn btn-primary">Add New Product</a>
+</p>
+
+<table id="productTable" class="table table-striped table-bordered">
+    <thead>
+        <tr>
+            <th>Product Title</th>
+            <th>Image</th>
+            <th>Price</th>
+            <th>Stock</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var product in Model)
+        {
+            <tr>
+                <td>@product.ProductTitle</td>
+                <td><img src="@product.ImageUrl" alt="Product Image" style="width: 50px;" /></td>
+                <td>@product.Price</td>
+                <td>@product.Stock</td>
+                <td>
+                    <a href="@Url.Action("Edit", new { id = product.ProductId })" class="btn btn-sm btn-primary">Edit</a>
+                    <a href="@Url.Action("Delete", new { id = product.ProductId })" class="btn btn-sm btn-danger">Delete</a>
+                </td>
+            </tr>
+        }
+        <script src="https://code.highcharts.com/highcharts.js"></script>
+    </tbody>
+</table>
+
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            $('#productTable').DataTable();
+        });
+    </script>
+}
